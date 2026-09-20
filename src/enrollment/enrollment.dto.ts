@@ -1,0 +1,1 @@
+import{IsInt,Matches}from'class-validator';import{ApiProperty}from'@nestjs/swagger';export class EnrollDto{@ApiProperty()@IsInt()studentId:number;@ApiProperty()@IsInt()subjectId:number;@ApiProperty({example:'2026-2027'})@Matches(/^\d{4}-\d{4}$/)academicYear:string;}
