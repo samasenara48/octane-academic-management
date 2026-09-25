@@ -1,1 +1,49 @@
-import{IsInt,IsNotEmpty,IsOptional,IsString}from'class-validator';import{ApiProperty,ApiPropertyOptional}from'@nestjs/swagger';export class CreateSubjectDto{@ApiProperty()@IsString()@IsNotEmpty()name:string;@ApiPropertyOptional()@IsOptional()@IsString()description?:string;@ApiProperty()@IsInt()gradeId:number;@ApiProperty()@IsInt()teacherId:number;}export class UpdateSubjectDto{@ApiPropertyOptional()@IsOptional()@IsString()name?:string;@ApiPropertyOptional()@IsOptional()@IsString()description?:string;@ApiPropertyOptional()@IsOptional()@IsInt()gradeId?:number;@ApiPropertyOptional()@IsOptional()@IsInt()teacherId?:number;}
+import {
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  Min,
+} from 'class-validator';
+
+export class CreateSubjectDto {
+
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsOptional()
+  @IsString()
+  description?: string;
+
+  @IsInt()
+  @Min(1)
+  gradeId: number;
+
+  @IsInt()
+  @Min(1)
+  teacherId: number;
+}
+
+
+export class UpdateSubjectDto {
+
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  name?: string;
+
+  @IsOptional()
+  @IsString()
+  description?: string;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  gradeId?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  teacherId?: number;
+}

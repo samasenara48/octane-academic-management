@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+  <title>Octane | Dashboard</title>
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+
+  <aside class="sidebar">
+
+    <div class="sidebar-brand">
+      <h1>OCTANE</h1>
+      <p>Academic Management</p>
+    </div>
+
+
+    <nav class="sidebar-menu">
+
+      <button
+        class="active"
+        onclick="showSection('dashboardSection', this)">
+        Dashboard
+      </button>
+
+      <button
+        onclick="showSection('studentsSection', this)">
+        Students
+      </button>
+
+      <button
+        onclick="showSection('teachersSection', this)">
+        Teachers
+      </button>
+
+      <button
+        onclick="showSection('gradesSection', this)">
+        Grades
+      </button>
+
+      <button
+        onclick="showSection('subjectsSection', this)">
+        Subjects
+      </button>
+
+      <button
+        onclick="showSection('enrollmentsSection', this)">
+        Enrollments
+      </button>
+
+    </nav>
+
+
+    <div class="sidebar-footer">
+
+      <button onclick="logout()">
+        Logout
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- ================= MAIN ================= -->
+
+  <main class="main-content">
+
+    <!-- TOP BAR -->
+
+    <div class="topbar">
+
+      <div>
+        <h2 id="pageTitle">
+          Dashboard
+        </h2>
+
+        <p>
+          Octane Academic Management System
+        </p>
+      </div>
+
+
+      <div class="user-info">
+
+        <strong id="currentUserName">
+          User
+        </strong>
+
+        <span id="currentUserRole">
+          User
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================================
+         DASHBOARD
+    ================================================== -->
+
+    <section
+      id="dashboardSection"
+      class="content-section active">
+
+      <div class="page-header">
+
+        <h1>Dashboard</h1>
+
+        <p>
+          Overview of the academic management system.
+        </p>
+
+      </div>
+
+
+      <div class="stats-grid">
+
+        <div class="stat-card">
+
+          <div class="stat-title">
+            Students
+          </div>
+
+          <div
+            class="stat-number"
+            id="studentCount">
+            0
+          </div>
+
+          <div class="stat-description">
+            Registered students
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-title">
+            Teachers
+          </div>
+
+          <div
+            class="stat-number"
+            id="teacherCount">
+            0
+          </div>
+
+          <div class="stat-description">
+            Registered teachers
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-title">
+            Grades
+          </div>
+
+          <div
+            class="stat-number"
+            id="gradeCount">
+            0
+          </div>
+
+          <div class="stat-description">
+            Academic grades
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-title">
+            Subjects
+          </div>
+
+          <div
+            class="stat-number"
+            id="subjectCount">
+            0
+          </div>
+
+          <div class="stat-description">
+            Available subjects
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <h3>
+            Welcome to Octane
+          </h3>
+
+        </div>
+
+        <div class="card-body">
+
+          <p style="color:#6b7280; line-height:1.7;">
+            Manage students, teachers, grades,
+            subjects and enrollments from one place.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         STUDENTS
+    ================================================== -->
+
+    <section
+      id="studentsSection"
+      class="content-section">
+
+      <div class="page-header">
+
+        <h1>Students</h1>
+
+        <p>
+          Manage registered students.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-body">
+
+          <div class="toolbar">
+
+            <input
+              id="studentSearch"
+              class="search-box"
+              type="text"
+              placeholder="Search student...">
+
+            <button
+              class="btn btn-secondary"
+              onclick="showStudents()">
+              Refresh
+            </button>
+
+          </div>
+
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Grade</th>
+                  <th>Academic Year</th>
+                </tr>
+
+              </thead>
+
+              <tbody id="studentsTableBody">
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         TEACHERS
+    ================================================== -->
+
+    <section
+      id="teachersSection"
+      class="content-section">
+
+      <div class="page-header">
+
+        <h1>Teachers</h1>
+
+        <p>
+          Manage teachers and their assigned subjects.
+        </p>
+
+      </div>
+
+
+      <div
+        id="teacherFormContainer"
+        class="form-card"
+        style="display:none;">
+
+        <h3>
+          Add Teacher
+        </h3>
+
+
+        <form id="teacherForm">
+
+          <div class="form-grid">
+
+            <div class="form-group">
+
+              <label>
+                Full Name
+              </label>
+
+              <input
+                id="teacherFullName"
+                type="text"
+                placeholder="Full Name"
+                required>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>
+                Email
+              </label>
+
+              <input
+                id="teacherEmail"
+                type="email"
+                placeholder="Email"
+                required>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>
+                Phone
+              </label>
+
+              <input
+                id="teacherPhone"
+                type="text"
+                placeholder="Phone (optional)">
+
+            </div>
+
+          </div>
+
+
+          <div class="form-actions">
+
+            <button
+              type="submit"
+              class="btn btn-primary">
+              Save Teacher
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="cancelTeacherForm()">
+              Cancel
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <h3>
+            Teachers List
+          </h3>
+
+          <button
+            class="btn btn-primary"
+            onclick="showTeacherForm()">
+            + Add Teacher
+          </button>
+
+        </div>
+
+
+        <div class="card-body">
+
+          <div class="toolbar">
+
+            <input
+              id="teacherSearch"
+              class="search-box"
+              type="text"
+              placeholder="Search teacher...">
+
+            <button
+              class="btn btn-secondary"
+              onclick="showTeachers()">
+              Refresh
+            </button>
+
+          </div>
+
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Subjects</th>
+                  <th>Actions</th>
+                </tr>
+
+              </thead>
+
+              <tbody id="teachersTableBody">
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         GRADES
+    ================================================== -->
+
+    <section
+      id="gradesSection"
+      class="content-section">
+
+      <div class="page-header">
+
+        <h1>Grades</h1>
+
+        <p>
+          Manage academic grades.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-body">
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Number</th>
+                  <th>Description</th>
+                </tr>
+
+              </thead>
+
+              <tbody id="gradesTableBody">
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         SUBJECTS
+    ================================================== -->
+
+    <section
+      id="subjectsSection"
+      class="content-section">
+
+      <div class="page-header">
+
+        <h1>Subjects</h1>
+
+        <p>
+          Manage subjects, grades and teachers.
+        </p>
+
+      </div>
+
+
+      <div
+        id="subjectFormContainer"
+        class="form-card"
+        style="display:none;">
+
+        <h3>
+          Add Subject
+        </h3>
+
+
+        <form id="subjectForm">
+
+          <div class="form-grid">
+
+            <div class="form-group">
+
+              <label>
+                Subject Name
+              </label>
+
+              <input
+                id="subjectName"
+                type="text"
+                placeholder="Subject Name"
+                required>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>
+                Description
+              </label>
+
+              <input
+                id="subjectDescription"
+                type="text"
+                placeholder="Description">
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>
+                Grade
+              </label>
+
+              <select
+                id="subjectGrade"
+                required>
+
+                <option value="">
+                  Select Grade
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>
+                Teacher
+              </label>
+
+              <select
+                id="subjectTeacher"
+                required>
+
+                <option value="">
+                  Select Teacher
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-actions">
+
+            <button
+              type="submit"
+              class="btn btn-primary">
+              Save Subject
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="cancelSubjectForm()">
+              Cancel
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <h3>
+            Subjects List
+          </h3>
+
+          <button
+            class="btn btn-primary"
+            onclick="showSubjectForm()">
+            + Add Subject
+          </button>
+
+        </div>
+
+
+        <div class="card-body">
+
+          <div class="toolbar">
+
+            <select
+              id="subjectGradeFilter"
+              class="filter-select">
+
+              <option value="">
+                All Grades
+              </option>
+
+            </select>
+
+
+            <button
+              class="btn btn-secondary"
+              onclick="showSubjects()">
+              Refresh
+            </button>
+
+          </div>
+
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+
+                <tr>
+                  <th>ID</th>
+                  <th>Subject</th>
+                  <th>Description</th>
+                  <th>Grade</th>
+                  <th>Teacher</th>
+                  <th>Actions</th>
+                </tr>
+
+              </thead>
+
+              <tbody id="subjectsTableBody">
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         ENROLLMENTS
+    ================================================== -->
+
+    <section
+      id="enrollmentsSection"
+      class="content-section">
+
+      <div class="page-header">
+
+        <h1>Enrollments</h1>
+
+        <p>
+          View student subject enrollments.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-body">
+
+          <div class="empty-state">
+
+            <h3>
+              Student Enrollments
+            </h3>
+
+            <p>
+              Enrollment management is available
+              through the student and subject records.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script src="/app.js"></script>
+
+</body>
+
+</html>

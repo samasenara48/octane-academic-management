@@ -1,1 +1,29 @@
-import{Module}from'@nestjs/common';import{TypeOrmModule}from'@nestjs/typeorm';import{Subject}from'../entities/subject.entity';import{Grade}from'../entities/grade.entity';import{Teacher}from'../entities/teacher.entity';import{StudentSubject}from'../entities/student-subject.entity';import{AuthModule}from'../auth/auth.module';import{SubjectsController}from'./subjects.controller';import{SubjectsService}from'./subjects.service';@Module({imports:[TypeOrmModule.forFeature([Subject,Grade,Teacher,StudentSubject]),AuthModule],controllers:[SubjectsController],providers:[SubjectsService]})export class SubjectsModule{}
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { PassportModule } from '@nestjs/passport';
+
+import { SubjectsController } from './subjects.controller';
+import { SubjectsService } from './subjects.service';
+
+import { Subject } from '../entities/subject.entity';
+import { Grade } from '../entities/grade.entity';
+import { Teacher } from '../entities/teacher.entity';
+import { StudentSubject } from '../entities/student-subject.entity';
+
+@Module({
+  imports: [
+    PassportModule.register({
+      defaultStrategy: 'jwt',
+    }),
+    TypeOrmModule.forFeature([
+      Subject,
+      Grade,
+      Teacher,
+      StudentSubject,
+    ]),
+  ],
+  controllers: [SubjectsController],
+  providers: [SubjectsService],
+  exports: [SubjectsService],
+})
+export class SubjectsModule {}
